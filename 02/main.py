@@ -65,13 +65,21 @@ def main():
         for line in f:
             reports[-1].append(string2array(line))
 
-    count = 0
+    count_wopd = 0
+    for report in reports[0]:
+        if is_safe(report):
+            count_wopd += 1
+
+    duration_wopd = (time.time() - start) * 1000
+
+    count_wpd = 0
     for report in reports[0]:
         if is_safe(remove_unsafe(report)):
-            count += 1
+            count_wpd += 1
 
-    duration = (time.time() - start) * 1000
-    print(f"Valid reports: {count} ({round(duration, 1)} ms)")
+    duration_wpd = (time.time() - start) * 1000
+    print(f"Valid reports without Problem Dumper™: {count_wopd} ({round(duration_wopd, 1)} ms)")
+    print(f"Valid reports with Problem Dumper™: {count_wpd} ({round(duration_wpd, 1)} ms)")
     
 
 if __name__ == "__main__":
